@@ -1,0 +1,9 @@
+[submodule "iOS/GVCFoundation"]
+	path = iOS/GVCFoundation
+	url = git@github.com:davidAtGVC/GVCFoundation.git
+[submodule "iOS/GVCCoreData"]
+	path = iOS/GVCCoreData
+	url = https://github.com/davidAtGVC/GVCCoreData.git
+[submodule "iOS/GVCUIKit"]
+	path = iOS/GVCUIKit
+	url = git@github.com:davidAtGVC/GVCUIKit.git

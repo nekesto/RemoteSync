@@ -62,7 +62,7 @@ public class SlowController extends GenericSyncController
 			throw new SecurityException("Last sync not identified, please use initial sync");
 		}
 
-		NSTimestamp lastSync = (NSTimestamp) ERXRestUtils.coerceValueToTypeNamed(lastSyncNode.value(), "NSTimestamp", null);
+		NSTimestamp lastSync = (NSTimestamp) ERXRestUtils.coerceValueToTypeNamed(lastSyncNode.value(), "NSTimestamp", super.restContext(), false);
 		if ( lastSync == null )
 		{
 			throw new SecurityException("Last sync not identified, please use initial sync");
@@ -184,7 +184,7 @@ public class SlowController extends GenericSyncController
 								Object val = NSKeyValueCoding.NullValue;
 								if ( ERXValueUtilities.isNull(attNode.value()) == false )
 								{
-									val = ERXRestUtils.coerceValueToTypeNamed(attNode.value(), attr.valueTypeClassName(), null); 
+									val = ERXRestUtils.coerceValueToTypeNamed(attNode.value(), attr.valueTypeClassName(), super.restContext(), false); 
 								}
 								
 								dict.setObjectForKey(val, attr.name());
@@ -237,7 +237,7 @@ public class SlowController extends GenericSyncController
 		{
 			if ( ERXValueUtilities.isNull(attNode.value()) == false )
 			{
-				val = ERXRestUtils.coerceValueToTypeNamed(attNode.value(), ((EOAttribute)attr).valueTypeClassName(), null);
+				val = ERXRestUtils.coerceValueToTypeNamed(attNode.value(), ((EOAttribute)attr).valueTypeClassName(), super.restContext(), false);
 			}
 		}
 		else if ( attr instanceof EORelationship )

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11D50d" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Category" representedClassName="Category">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="category" inverseEntity="Note" indexed="YES"/>
+    </entity>
+    <entity name="Note" representedClassName="Note">
+        <attribute name="content" optional="YES" attributeType="String"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date"/>
+        <attribute name="subject" optional="YES" attributeType="String"/>
+        <relationship name="category" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="notes" inverseEntity="Category" indexed="YES"/>
+    </entity>
+    <configuration name="MobileNotes">
+        <memberEntity name="Category"/>
+        <memberEntity name="Note"/>
+    </configuration>
+    <elements>
+        <element name="Category" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="Note" positionX="160" positionY="192" width="128" height="105"/>
+    </elements>
+</model>

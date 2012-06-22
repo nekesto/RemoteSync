@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11D50d" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="SyncChangeset" representedClassName="SyncChangeset">
+        <attribute name="updatedDate" optional="YES" attributeType="Date"/>
+        <attribute name="uuid" optional="YES" attributeType="String"/>
+        <relationship name="changes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SyncChangeValue" inverseName="changeset" inverseEntity="SyncChangeValue" indexed="YES"/>
+    </entity>
+    <entity name="SyncChangeValue" representedClassName="SyncChangeValue">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="value" optional="YES" attributeType="String"/>
+        <attribute name="valueType" optional="YES" attributeType="String"/>
+        <relationship name="changeset" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SyncChangeset" inverseName="changes" inverseEntity="SyncChangeset" indexed="YES"/>
+        <relationship name="syncEntity" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SyncEntity" inverseName="changes" inverseEntity="SyncEntity" indexed="YES"/>
+        <relationship name="toMany" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SyncEntity" inverseName="toManyChanges" inverseEntity="SyncEntity" indexed="YES"/>
+        <relationship name="toOne" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SyncEntity" inverseName="toOneChanges" inverseEntity="SyncEntity" indexed="YES"/>
+    </entity>
+    <entity name="SyncEntity" representedClassName="SyncEntity">
+        <attribute name="dataToken" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+        <attribute name="updatedDate" optional="YES" attributeType="Date"/>
+        <attribute name="uuid" optional="YES" attributeType="String"/>
+        <relationship name="changes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SyncChangeValue" inverseName="syncEntity" inverseEntity="SyncChangeValue" indexed="YES"/>
+        <relationship name="toManyChanges" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SyncChangeValue" inverseName="toMany" inverseEntity="SyncChangeValue" indexed="YES"/>
+        <relationship name="toOneChanges" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SyncChangeValue" inverseName="toOne" inverseEntity="SyncChangeValue" indexed="YES"/>
+    </entity>
+    <entity name="SyncPrincipal" representedClassName="SyncPrincipal">
+        <attribute name="lastSync" optional="YES" attributeType="Date"/>
+        <attribute name="password" optional="YES" attributeType="String"/>
+        <attribute name="principalId" optional="YES" attributeType="String"/>
+        <attribute name="site" optional="YES" attributeType="String"/>
+        <attribute name="username" optional="YES" attributeType="String"/>
+        <attribute name="uuid" optional="YES" attributeType="String"/>
+    </entity>
+    <configuration name="ERSync">
+        <memberEntity name="SyncChangeset"/>
+        <memberEntity name="SyncChangeValue"/>
+        <memberEntity name="SyncEntity"/>
+        <memberEntity name="SyncPrincipal"/>
+    </configuration>
+    <elements>
+        <element name="SyncChangeValue" positionX="160" positionY="192" width="128" height="150"/>
+        <element name="SyncEntity" positionX="160" positionY="192" width="128" height="165"/>
+        <element name="SyncChangeset" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="SyncPrincipal" positionX="160" positionY="192" width="128" height="135"/>
+    </elements>
+</model>

@@ -1,7 +1,7 @@
 {
     EOModelVersion = "2.1"; 
     adaptorName = JDBC; 
-    connectionDictionary = {URL = "jdbc:FrontBase://localhost/ERSync/user=sync/upasswd=tester"; }; 
+    connectionDictionary = {}; 
     entities = (
         {className = "er.sync.eo.ERSyncAuthReference"; name = ERSyncAuthReference; }, 
         {className = "er.sync.eo.ERSyncCapabilities"; name = ERSyncCapabilities; }, 
@@ -59,16 +59,16 @@
         {className = EOGenericRecord; name = ERSyncMMEntityAuthReference; }, 
         {className = "er.sync.eo.ERSyncPrincipal"; name = ERSyncPrincipal; }
     ); 
-    internalInfo = {"_deletedEntityNamesInObjectStore" = (ERSyncPrincipal); }; 
     userInfo = {
         "_EntityModeler" = {
-            activeDatabaseConfigName = Default; 
+            activeDatabaseConfigName = Postgress; 
             databaseConfigs = {
                 Default = {
                     adaptorName = JDBC; 
                     connectionDictionary = {URL = "jdbc:FrontBase://localhost/ERSync/user=sync/upasswd=tester"; }; 
                     prototypeEntityName = EOJDBCFrontBasePrototypes; 
                 }; 
+                Postgress = {adaptorName = JDBC; prototypeEntityName = EOJDBCPostgresqlPrototypes; }; 
             }; 
         }; 
     }; 

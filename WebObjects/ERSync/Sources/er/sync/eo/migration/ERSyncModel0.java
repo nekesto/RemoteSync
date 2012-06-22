@@ -59,7 +59,7 @@ public class ERSyncModel0 extends Migration implements IERXPostMigration
 		eRSyncPrincipalTable.create();
 	 	eRSyncPrincipalTable.setPrimaryKey("id");
 	 	eRSyncPrincipalTable.addUniqueIndex("ERSyncPrincipal_uniqueClientAuthDevice", 
-	 			eRSyncPrincipalTable.existingColumnNamed("clientAppId"), 
+	 			eRSyncPrincipalTable.existingColumnNamed("clientAppId"),  
 	 			eRSyncPrincipalTable.existingColumnNamed("authRefId"), 
 	 			eRSyncPrincipalTable.existingColumnNamed("deviceUUID"));
 
