@@ -10,10 +10,6 @@
 
 
 @interface SyncXMLStatus : NSObject
-{
-	NSString *principalUUID;
-    NSString *lastSyncString;
-}
 
 + (NSDate *)dateFromString:(NSString *)string;
 

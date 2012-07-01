@@ -91,4 +91,14 @@ public class NotesPage extends WOComponent
     	return null;
 	}
 
+	public boolean isAdminUser()
+	{
+		return ((Session)session()).user().username().equals("admin");
+	}
+	
+	public WOComponent showSyncAdmin()
+	{    	
+    	return pageWithName( "SyncAdmin" );
+	}
+
 }

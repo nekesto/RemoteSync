@@ -24,10 +24,15 @@
 - (NSDictionary *)xmlDigest
 {
 	GVCXMLDigester *irony = [[GVCXMLDigester alloc] init];
+	
+		// rest error is encoded as <String>
+	[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"SyncXMLStatus"] forNodeName:@"String"];
+	[irony addRule:[GVCXMLDigesterRule ruleForSetPropertyText:@"lastSyncString"] forNodePath:@"String"];
+
 	switch ([netOperation type]) 
 	{
 		case SyncOperationType_REGISTER:
-			[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"SyncXMLStatus"] forNodeName:@"syncs"];
+			[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"SyncXMLStatus"] forNodeName:@"sync"];
 			[irony addRule:[GVCXMLDigesterRule ruleForSetPropertyText:@"principalUUID"] forNodeName:@"principalUUID"];
 			[irony addRule:[GVCXMLDigesterRule ruleForSetPropertyText:@"lastSyncString"] forNodeName:@"lastSync"];
 			break;
@@ -36,31 +41,31 @@
 		case SyncOperationType_FULL:
 		case SyncOperationType_DELTA:
 		{
-			[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"SyncXMLStatus"] forPattern:@"^syncs/status"];
-			[irony addRule:[GVCXMLDigesterRule ruleForSetPropertyText:@"principalUUID"] forPattern:@"^syncs/status/principalUUID"];
-			[irony addRule:[GVCXMLDigesterRule ruleForSetPropertyText:@"lastSyncString"] forPattern:@"^syncs/status/lastSync"];
+			[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"SyncXMLStatus"] forNodeName:@"status"];
+			[irony addRule:[GVCXMLDigesterRule ruleForSetPropertyText:@"principalUUID"] forNodePath:@"status/principalUUID"];
+			[irony addRule:[GVCXMLDigesterRule ruleForSetPropertyText:@"lastSyncString"] forNodePath:@"status/lastSync"];
 
-			[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"SyncXMLRecord"] forPattern:@"^syncs/data/[a-zA-Z0-9]*"];
+			[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"SyncXMLRecord"] forPattern:@"^sync/data/[a-zA-Z0-9]*"];
 			GVCXMLDigesterElementNamePropertyRule *elnameProp = [[GVCXMLDigesterElementNamePropertyRule alloc] initWithPropertyName:@"recordName"];
-			[irony addRule:elnameProp forPattern:@"^syncs/data/[a-zA-Z0-9]*"];
+			[irony addRule:elnameProp forPattern:@"^sync/data/[a-zA-Z0-9]*"];
 			
 			GVCXMLDigesterAttributeMapRule *attMapRule = [[GVCXMLDigesterAttributeMapRule alloc] initWithKeysAndValues:@"updatedDate", @"updatedDateString", @"id", @"recordUUID", @"status", @"recordStatus", nil];
-			[irony addRule:attMapRule forPattern:@"^syncs/data/[a-zA-Z0-9]*"];
+			[irony addRule:attMapRule forPattern:@"^sync/data/[a-zA-Z0-9]*"];
 			
 
-			[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"SyncXMLProperty"] forPattern:@"^syncs/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
-			[irony addRule:[GVCXMLDigesterRule ruleForParentChild:@"attribute"] forPattern:@"^syncs/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
+			[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"SyncXMLProperty"] forPattern:@"^sync/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
+			[irony addRule:[GVCXMLDigesterRule ruleForParentChild:@"attribute"] forPattern:@"^sync/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
 			GVCXMLDigesterElementNamePropertyRule *attrNameProp = [[GVCXMLDigesterElementNamePropertyRule alloc] initWithPropertyName:@"name"];
-			[irony addRule:attrNameProp forPattern:@"^syncs/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
-			[irony addRule:[GVCXMLDigesterRule ruleForSetPropertyText:@"value"] forPattern:@"^syncs/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
+			[irony addRule:attrNameProp forPattern:@"^sync/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
+			[irony addRule:[GVCXMLDigesterRule ruleForSetPropertyText:@"value"] forPattern:@"^sync/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
 
-			[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"SyncXMLReference"] forPattern:@"^syncs/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
-			[irony addRule:[GVCXMLDigesterRule ruleForParentChild:@"relation"] forPattern:@"^syncs/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
+			[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"SyncXMLReference"] forPattern:@"^sync/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
+			[irony addRule:[GVCXMLDigesterRule ruleForParentChild:@"relation"] forPattern:@"^sync/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
 			GVCXMLDigesterElementNamePropertyRule *relationProp = [[GVCXMLDigesterElementNamePropertyRule alloc] initWithPropertyName:@"recordName"];
-			[irony addRule:relationProp forPattern:@"^syncs/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
+			[irony addRule:relationProp forPattern:@"^sync/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
 			
 			GVCXMLDigesterAttributeMapRule *relMapRule = [[GVCXMLDigesterAttributeMapRule alloc] initWithKeysAndValues:@"updatedDate", @"updatedDateString", @"id", @"recordUUID", @"status", @"recordStatus", nil];
-			[irony addRule:relMapRule forPattern:@"^syncs/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
+			[irony addRule:relMapRule forPattern:@"^sync/data/[a-zA-Z0-9]*/[a-zA-Z0-9]*/[a-zA-Z0-9]*"];
 
 			break;
 		}
@@ -137,19 +142,6 @@
 		[self operationDidFailWithError:[NSError gvc_ErrorWithDomain:@"SyncLoad" code:100 localizedDescription:msg]];
 	}
 	return (NSRelationshipDescription *)prop;
-}
-
-- (void)saveContext
-{
-	NSError *error = nil;
-	if ([[self managedObjectContext] hasChanges] == YES)
-	{
-		if ([[self managedObjectContext] save:&error] == NO)
-		{
-			[self operationDidFailWithError:error];
-			GVC_ASSERT_LOG(@"Save failed: %@\n%@", [error localizedDescription], [error userInfo]);
-		} 
-	}
 }
 
 
@@ -310,66 +302,75 @@
 	[super operationDidStart];
 	
 	NSDictionary *resultsDigest = [self xmlDigest];
-	SyncPrincipal *principal = [SyncPrincipal pseudoSingletonInContext:[self managedObjectContext]];
-	
-	switch ( [netOperation type] )
+	if (([[resultsDigest allKeys] count] == 1) && ([[resultsDigest allKeys] containsObject:@"String"] == YES))
 	{
-		case SyncOperationType_REGISTER:
+			// this is actually an error message
+		SyncXMLStatus *stat = [resultsDigest objectForKey:@"String"];
+		[self operationDidFailWithError:[NSError gvc_ErrorWithDomain:GVCNetOperationErrorDomain code:111 localizedDescription:[stat lastSyncString]]];
+	}
+	else
+	{
+		SyncPrincipal *principal = [SyncPrincipal pseudoSingletonInContext:[self managedObjectContext]];
+		
+		switch ( [netOperation type] )
 		{
-			SyncXMLStatus *xmlSync = [resultsDigest objectForKey:@"syncs"];
-			
-			[principal setPrincipalId:[xmlSync principalUUID]];
-			[principal setLastSync:[xmlSync lastSync]];
-			
-			break;
-		}
-		case SyncOperationType_INITIAL:
-		case SyncOperationType_FULL:
-		case SyncOperationType_DELTA:
-		{
-			NSMutableArray *processingFailed = [NSMutableArray arrayWithCapacity:0];
-			for (NSString *key in [resultsDigest allKeys])
+			case SyncOperationType_REGISTER:
 			{
-				if ( [key isEqualToString:@"syncs/status"] == NO )
+				SyncXMLStatus *xmlSync = [resultsDigest objectForKey:@"sync"];
+				
+				[principal setPrincipalId:[xmlSync principalUUID]];
+				[principal setLastSync:[xmlSync lastSync]];
+				
+				break;
+			}
+			case SyncOperationType_INITIAL:
+			case SyncOperationType_FULL:
+			case SyncOperationType_DELTA:
+			{
+				NSMutableArray *processingFailed = [NSMutableArray arrayWithCapacity:0];
+				for (NSString *key in [resultsDigest allKeys])
 				{
-					NSObject *data = [resultsDigest objectForKey:key];
-					if ( [data isKindOfClass:[NSArray class]] == YES )
+					if ( [key isEqualToString:@"sync/status"] == NO )
 					{
-						for (SyncXMLRecord *record in (NSArray *)data)
+						NSObject *data = [resultsDigest objectForKey:key];
+						if ( [data isKindOfClass:[NSArray class]] == YES )
 						{
-							SyncXMLRecord *failed = [self processRecord:record];
+							for (SyncXMLRecord *record in (NSArray *)data)
+							{
+								SyncXMLRecord *failed = [self processRecord:record];
+								if ( failed != nil )
+									[processingFailed addObject:failed];
+							}
+						}
+						else
+						{
+							SyncXMLRecord *failed = [self processRecord:(SyncXMLRecord *)data];
 							if ( failed != nil )
 								[processingFailed addObject:failed];
 						}
 					}
-					else
+					
+					NSMutableArray *success = [NSMutableArray arrayWithCapacity:1];
+					for (SyncXMLRecord *record in processingFailed)
 					{
-						SyncXMLRecord *failed = [self processRecord:(SyncXMLRecord *)data];
-						if ( failed != nil )
-							[processingFailed addObject:failed];
+						SyncXMLRecord *failed = [self processRecord:record];
+						if ( failed == nil )
+							[success addObject:record];
 					}
+					[processingFailed removeObjectsInArray:success];
+					[self saveContext];
 				}
+				SyncXMLStatus *xmlSync = [resultsDigest objectForKey:@"sync/status"];
 				
-				NSMutableArray *success = [NSMutableArray arrayWithCapacity:1];
-				for (SyncXMLRecord *record in processingFailed)
-				{
-					SyncXMLRecord *failed = [self processRecord:record];
-					if ( failed == nil )
-						[success addObject:record];
-				}
-				[processingFailed removeObjectsInArray:success];
-				[self saveContext];
+				[principal setLastSync:[xmlSync lastSync]];
+				break;
 			}
-			SyncXMLStatus *xmlSync = [resultsDigest objectForKey:@"syncs/status"];
-			
-			[principal setLastSync:[xmlSync lastSync]];
-			break;
 		}
+		
+		[[self managedObjectContext] save:nil];
+		
+		[self operationDidFinish];
 	}
-	
-	[[self managedObjectContext] save:nil];
-	
-	[self operationDidFinish];
 }
 
 @end

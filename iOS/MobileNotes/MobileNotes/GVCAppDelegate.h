@@ -8,15 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GVCAppDelegate : UIResponder <UIApplicationDelegate>
+#import "GVCFoundation.h"
+#import "GVCUIKit.h"
+#import "GVCCoreData.h"
+#import "ERSync.h"
 
-@property (strong, nonatomic) UIWindow *window;
+GVC_DEFINE_EXTERN_STR(SYNC_APP_ID)
+GVC_DEFINE_EXTERN_STR(SYNC_DEVICE_IPAD) //743E2D47-DDA4-4827-A164-0C61547CD4D5
 
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@interface GVCAppDelegate : GVCCoreDataUIAppDelegate
 
-- (void)saveContext;
-- (NSURL *)applicationDocumentsDirectory;
+@property (nonatomic, retain) SyncEngine *engine;
+@property (nonatomic, retain) SyncPrincipal *principal;
+
+- (void)syncEngineDidReset;
 
 @end

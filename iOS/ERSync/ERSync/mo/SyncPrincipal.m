@@ -16,6 +16,8 @@
 	NSString *fmtted = nil;
 	if ( [self lastSync] != nil )
 	{
+		NSDate *ls = [self lastSync];
+		GVCLogError(@"ls %@", ls);
 		fmtted = [[self lastSync] gvc_iso8601StringValue];
 	}
 	return fmtted;

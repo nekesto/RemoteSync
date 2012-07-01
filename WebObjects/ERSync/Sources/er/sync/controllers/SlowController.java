@@ -73,6 +73,11 @@ public class SlowController extends GenericSyncController
 			throw new SecurityException("No previous sync recorded, please use initial");
 		}
 		
+		NSTimestamp prin = principal().lastSync();
+		System.out.println("Principal " + prin + " - " + prin.getTime());
+		System.out.println("LastSync " + lastSync + " - " + lastSync.getTime());
+		System.out.println("Principal " + prin.getTimezoneOffset() + " - " + lastSync.getTimezoneOffset());
+
 		long pls = Math.abs( principal().lastSync().getTime() - lastSync.getTime() );
 		if ( pls > 1000 )
 		{

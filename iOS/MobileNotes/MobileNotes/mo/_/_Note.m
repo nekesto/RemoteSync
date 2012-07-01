@@ -3,13 +3,18 @@
 
 #import "_Note.h"
 
-GVC_DEFINE_STRVALUE(Note_ENTITY_NAME, Note)
+const struct NoteAttributes NoteAttributes = {
+	.content = @"content",
+	.creationDate = @"creationDate",
+	.subject = @"subject",
+};
 
-GVC_DEFINE_STRVALUE(Note_Attribute_content, content)
-GVC_DEFINE_STRVALUE(Note_Attribute_creationDate, creationDate)
-GVC_DEFINE_STRVALUE(Note_Attribute_subject, subject)
+const struct NoteRelationships NoteRelationships = {
+	.category = @"category",
+};
 
-GVC_DEFINE_STRVALUE(Note_Relationship_category, category)
+const struct NoteFetchedProperties NoteFetchedProperties = {
+};
 
 @implementation NoteID
 @end
@@ -18,16 +23,16 @@ GVC_DEFINE_STRVALUE(Note_Relationship_category, category)
 
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:Note_ENTITY_NAME inManagedObjectContext:moc_];
+	return [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:moc_];
 }
 
 + (NSString*)entityName {
-	return Note_ENTITY_NAME;
+	return @"Note";
 }
 
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:Note_ENTITY_NAME inManagedObjectContext:moc_];
+	return [NSEntityDescription entityForName:@"Note" inManagedObjectContext:moc_];
 }
 
 - (NoteID*)objectID {
@@ -68,6 +73,7 @@ GVC_DEFINE_STRVALUE(Note_Relationship_category, category)
 @dynamic category;
 
 	
+
 
 
 

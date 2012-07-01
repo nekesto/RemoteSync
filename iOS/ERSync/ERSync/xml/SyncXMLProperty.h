@@ -10,12 +10,6 @@
 
 
 @interface SyncXMLProperty : NSObject 
-{
-	NSString *name;
-	NSString *value;
-	
-	NSMutableArray *relations;
-}
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *value;

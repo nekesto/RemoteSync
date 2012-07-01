@@ -7,8 +7,13 @@
 //
 
 #import "GVCMasterViewController.h"
-
 #import "GVCDetailViewController.h"
+
+#import "GVCFoundation.h"
+#import "GVCCoreData.h"
+#import "Note.h"
+#import "Category.h"
+
 
 @interface GVCMasterViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -54,10 +59,16 @@
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-    
+
+	NSManagedObject *newCat = [NSEntityDescription insertNewObjectForEntityForName:[Category entityName] inManagedObjectContext:context];
+	[(Category *)newCat setName:@"Test"];
+
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
+    [newManagedObject setValue:[NSDate date] forKey:NoteAttributes.creationDate];
+    [newManagedObject setValue:@"New note" forKey:NoteAttributes.subject];
+    [newManagedObject setValue:[[NSDate date] gvc_FormattedStyle:NSDateFormatterMediumStyle] forKey:NoteAttributes.content];
+	[newManagedObject setValue:newCat forKey:NoteRelationships.category];
     
     // Save the context.
     NSError *error = nil;
@@ -67,6 +78,7 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
+	[[self tableView] reloadData]; 
 }
 
 #pragma mark - Table View
@@ -120,7 +132,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    self.detailViewController.detailItem = object;
+    [[self detailViewController ] setDetailItem:(Note *)object];
 }
 
 #pragma mark - Fetched results controller
@@ -133,21 +145,21 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:NoteAttributes.subject ascending:NO];
     NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     
@@ -210,6 +222,7 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [self.tableView endUpdates];
+	[self.tableView reloadData];
 }
 
 /*
@@ -225,7 +238,8 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+    cell.textLabel.text = [[object valueForKey:NoteAttributes.creationDate] gvc_FormattedStyle:NSDateFormatterShortStyle];
+    cell.detailTextLabel.text = [object valueForKey:NoteAttributes.subject];
 }
 
 @end

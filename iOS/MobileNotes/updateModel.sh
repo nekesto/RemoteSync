@@ -28,7 +28,7 @@ fi
 
 mogenerator \
 	-m "${modelPath}.xcdatamodeld/${modelVersion}" \
-	--template-path ${PROJECT_DIR}/../GVCCoreData/Resources/mogenerate \
+	--template-var arc=true \
 	--base-class GVCManagedObject \
 	--machine-dir $outMachineDir \
 	--human-dir $outDir

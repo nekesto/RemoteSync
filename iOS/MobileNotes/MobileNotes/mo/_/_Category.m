@@ -3,11 +3,16 @@
 
 #import "_Category.h"
 
-GVC_DEFINE_STRVALUE(Category_ENTITY_NAME, Category)
+const struct CategoryAttributes CategoryAttributes = {
+	.name = @"name",
+};
 
-GVC_DEFINE_STRVALUE(Category_Attribute_name, name)
+const struct CategoryRelationships CategoryRelationships = {
+	.notes = @"notes",
+};
 
-GVC_DEFINE_STRVALUE(Category_Relationship_notes, notes)
+const struct CategoryFetchedProperties CategoryFetchedProperties = {
+};
 
 @implementation CategoryID
 @end
@@ -16,16 +21,16 @@ GVC_DEFINE_STRVALUE(Category_Relationship_notes, notes)
 
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:Category_ENTITY_NAME inManagedObjectContext:moc_];
+	return [NSEntityDescription insertNewObjectForEntityForName:@"Category" inManagedObjectContext:moc_];
 }
 
 + (NSString*)entityName {
-	return Category_ENTITY_NAME;
+	return @"Category";
 }
 
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:Category_ENTITY_NAME inManagedObjectContext:moc_];
+	return [NSEntityDescription entityForName:@"Category" inManagedObjectContext:moc_];
 }
 
 - (CategoryID*)objectID {
@@ -53,12 +58,15 @@ GVC_DEFINE_STRVALUE(Category_Relationship_notes, notes)
 
 	
 - (NSMutableSet*)notesSet {
-	[self willAccessValueForKey:Category_Relationship_notes];
-	NSMutableSet *result = [self mutableSetValueForKey:Category_Relationship_notes];
-	[self didAccessValueForKey:Category_Relationship_notes];
+	[self willAccessValueForKey:@"notes"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"notes"];
+  
+	[self didAccessValueForKey:@"notes"];
 	return result;
 }
 	
+
 
 
 

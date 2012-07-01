@@ -1,0 +1,10 @@
+wrapper : PageWrapper {
+}
+
+notesPage : WOHyperlink 
+{
+	action = showNotesPage;
+}
+
+devReport : DeveloperReport {
+}

@@ -1,0 +1,51 @@
+developerRep : WORepetition {
+	list = developerList;
+	item = developer;
+}
+
+devName : WOString {
+  value = developer.name;
+}
+
+devDetailLink : WOHyperlink 
+{
+	action = selectDeveloper;
+}
+
+hasSelectedDev : WOConditional {
+  condition = selected;
+}
+
+selectedName : WOString {
+  value = selected.name;
+}
+
+selecteduuid : WOString {
+  value = selected.uuid;
+}
+
+appsRep : WORepetition {
+	list = selected.applications;
+	item = appItem;
+}
+
+appName : WOString {
+  value = appItem.name;
+}
+
+appuuid : WOString {
+  value = appItem.uuid;
+}
+
+deviceRep : WORepetition {
+	list = appItem.devices;
+	item = deviceItem;
+}
+
+deviceName : WOString {
+  value = deviceItem.name;
+}
+
+deviceUUID : WOString {
+  value = deviceItem.uuid;
+}

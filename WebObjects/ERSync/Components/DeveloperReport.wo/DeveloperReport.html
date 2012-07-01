@@ -1,0 +1,93 @@
+<style>
+.DevList {
+	 
+	display:block;
+	width: 190px;
+	border-right: #000000 1px solid;
+	padding: 10px 0px 10px 10px;
+	text-align:right;
+	color: #507A00;
+	text-decoration:none;
+	padding:2px;
+	margin-bottom:5px;
+	margin-top:5px;
+	border-bottom: 1px dotted #507AAA;
+	font-weight: bold;
+}
+.DevList a {
+	color: #507AAA;
+	padding: 2px;
+}
+.DevListItem
+{
+	font-weight: bold;
+	padding: 2px;
+	margin: 2px;
+}
+.DevDetail 
+{
+	position: fixed;
+	top:30px;
+	left: 210px;
+
+}
+
+</style>
+<div class="DevList">
+<webobject name = "developerRep">
+	<div class="DevListItem"><webobject name = "devDetailLink"><webobject name = "devName"/></webobject></div>
+</webobject>
+</div>
+
+<webobject name = "hasSelectedDev">
+	<div class="DevDetail">
+	<table>
+		<tr>
+			<th>Company Name</th>
+			<td><webobject name = "selectedName"/></td>
+		</tr>
+		<tr>
+			<th>Company UUID</th>
+			<td><webobject name = "selecteduuid"/></td>
+		</tr>
+		<tr>
+			<td colspan=2><hr></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<table>
+				<tr>
+					<th>Application</th>
+					<th>App UUID</th>
+				</tr>
+				<webobject name = "appsRep">
+				<tr>
+					<td><webobject name = "appName"/></td>
+					<td><webobject name = "appuuid"/></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<table>
+							<tr>
+								<th>Device</th>
+								<th>Device UUID</th>
+							</tr>
+							<webobject name = "deviceRep">
+							<tr>
+								<td><webobject name = "deviceName"/></td>
+								<td><webobject name = "deviceUUID"/></td>
+							</tr>
+							</webobject>
+						</table>
+					</td>
+				</tr>
+				</webobject>
+				</table>
+			</td>
+		</tr>
+
+	</table>
+	</div>
+</webobject>

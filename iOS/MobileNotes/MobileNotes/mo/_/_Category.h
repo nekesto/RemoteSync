@@ -2,18 +2,18 @@
 // Make changes to Category.h instead.
 
 #import <CoreData/CoreData.h>
-#import "GVCFoundation.h"
-
 #import "GVCManagedObject.h"
 
-GVC_DEFINE_EXTERN_STR(Category_ENTITY_NAME)
+extern const struct CategoryAttributes {
+	__unsafe_unretained NSString *name;
+} CategoryAttributes;
 
+extern const struct CategoryRelationships {
+	__unsafe_unretained NSString *notes;
+} CategoryRelationships;
 
-GVC_DEFINE_EXTERN_STR(Category_Attribute_name)
-
-
-GVC_DEFINE_EXTERN_STR(Category_Relationship_notes)
-
+extern const struct CategoryFetchedProperties {
+} CategoryFetchedProperties;
 
 @class Note;
 
@@ -30,15 +30,20 @@ GVC_DEFINE_EXTERN_STR(Category_Relationship_notes)
 
 
 
+
 @property (nonatomic, strong) NSString* name;
+
 
 //- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
 
 
 
 
+
 @property (nonatomic, strong) NSSet* notes;
+
 - (NSMutableSet*)notesSet;
+
 
 
 

@@ -21,6 +21,8 @@
 	NSArray *entities = [model entities];
 	for (NSEntityDescription *entity in entities)
 	{
+		[self operationProgress:([entities indexOfObject:entity] + 1) forTotal:[entities count] statusMessage:GVC_SPRINTF(@"Deleting all records from %@", [entity name])];
+		
 		NSFetchRequest *request = [[NSFetchRequest alloc] init];
 		[request setEntity:entity];
 		

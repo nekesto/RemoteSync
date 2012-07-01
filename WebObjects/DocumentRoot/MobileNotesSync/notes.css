@@ -1,12 +1,10 @@
-/* Cadre CSS Document */* {	margin: 0;}html, body {	height: 100%;
+/* CSS Document */* {	margin: 0;}html, body {	height: 100%;
 	font-size: 20px;
 
 	font-family: Helvetica;}
 a {	text-decoration: none;
 }a:hover {	border:1px solid #0010FF;	background-color: #B2BAFF;
-	text-decoration: none;}h1 {	vertical-align: top;	margin-top: -11px;	text-align: center;		color: rgb(255, 255, 255);	font-weight: bold;	background-color: #2B3E54;	border-top: #000000 1px solid;	border-bottom: #000000 1px solid;	padding-top: 4px;	padding-bottom: 4px;}h2 {	text-align: center;		background-color:rgb (0, 0, 0);	padding-top: 4px;	padding-bottom: 2px;}
-
-#content {
+	text-decoration: none;}h1 {	vertical-align: top;	margin-top: -11px;	text-align: center;		color: rgb(255, 255, 255);	font-weight: bold;	background-color: #2B3E54;	border-top: #000000 1px solid;	border-bottom: #000000 1px solid;	padding-top: 4px;	padding-bottom: 4px;}h2 {	text-align: center;		background-color:rgb (0, 0, 0);	padding-top: 4px;	padding-bottom: 2px;}#content {
 	width: inherit;
 	height:auto;
 	background-color: rgb(255, 255, 255);
@@ -15,17 +13,13 @@
 	margin-left: 80px;
 	margin-right: 80px;
 	padding: 0px 0px 10px 0px;
-}
-
-.Logo {
+}.Logo {
 	z-index:200;
 	text-align:left;
 	height:auto;
 	width:600px;
 	height:400px;
-}
-
-.logInPadding {
+}.logInPadding {
    /* for div inside of form */
 	height:200;
 	padding-top:200px;
@@ -33,15 +27,11 @@
 	padding-left:200px;
 	margin-right:75px;
 
-}
-
-.logInSubmit {   /* for div inside of form */
+}.logInSubmit {   /* for div inside of form */
 	padding: 10px 0px 10px 10px;
 	text-align:right;
 	width:200px;
-}
-
-.signUpLink {   /* for div inside of form */
+}.signUpLink {   /* for div inside of form */
 	padding: 10px 0px 10px 10px;
 	text-align:right;
 	width:200px;
@@ -52,9 +42,7 @@
 	margin-top:5px;
 	border-bottom: 1px dotted #507AAA;
 	font-weight: bold;
-}
-
-.logInText {
+}.logInText {
 	color: #507AAA;
 	text-decoration:none;
 	padding:2px;
@@ -63,9 +51,7 @@
 	border-bottom: 1px dotted #507AAA;
 	font-weight: bold;
 	width:200px;
-}
-
-.buttonStyle {
+}.buttonStyle {
 	color:#000;
 	position: inherit;
 	border:1px solid #000;
@@ -78,9 +64,7 @@
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-stretch: semi-expanded;
 	letter-spacing:.16em;
-}
-
-.NoteList {
+}.NoteList {
 	position:fixed;
 	top:30px;
 	left:5px; 
@@ -96,49 +80,38 @@
 	margin-top:5px;
 	border-bottom: 1px dotted #507AAA;
 	font-weight: bold;
-}
-
-.NoteList a {
+}.NoteList a {
 	color: #507AAA;
 	padding: 2px;
-}
-
-.noteListItem
+}.noteListItem
 {
 	font-weight: bold;
 	padding: 2px;
 	margin: 2px;
-}
-
-.addNoteLink a
+}.addNoteLink a
 {
 	color: white;
 	border:1px solid #0010FF;
 	background-color: #5F7D67;
 }
 
-.NoteDetail 
+.NoteDetail 
 {
 	position: fixed;
 	top:30px;
 	left: 210px;
 	width: 400px;
 	background-image: url(/MobileNotesSync/images/gradientHeader.png);
-}
-.NoteDetail textarea 
+}.NoteDetail textarea 
 {
 	background-color: rgb(255, 255, 255);
 	border:1px solid black;
-}
-
-.nav
+}.nav
 {
 	font-weight: bold;
 	padding: 5px;
 	margin: 5px;
-}
-
-.row 
+}.row 
 {
 	font-weight: bold;
 	padding: 5px;

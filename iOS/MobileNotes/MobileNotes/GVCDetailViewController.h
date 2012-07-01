@@ -7,11 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NoteEditTableViewController.h"
+#import "SyncStatusTableViewController.h"
+
+@class Note;
 
 @interface GVCDetailViewController : UIViewController <UISplitViewControllerDelegate>
 
-@property (strong, nonatomic) id detailItem;
+- (void)setDetailItem:(Note *)note;
 
-@property (strong, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@property (strong, nonatomic) IBOutlet NoteEditTableViewController *noteEditor;
+@property (strong, nonatomic) IBOutlet SyncStatusTableViewController *syncStatus;
+
+
+- (IBAction)resetLocal:(id)sender;
 
 @end

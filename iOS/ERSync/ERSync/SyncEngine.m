@@ -58,12 +58,12 @@
 }
 
 
-- (SyncChangeset *)processDeleted:(NSArray *)changes inChangeset:(SyncChangeset *)set
+- (SyncChangeset *)processDeleted:(NSSet *)changes inChangeset:(SyncChangeset *)set
 {
 	for (NSManagedObject *mo in changes)
 	{
-		NSEntityDescription *entity = [mo entity];
-		if ( [syncEntities containsObject:[entity name]] == YES )
+		NSEntityDescription *nsEntityDesc = [mo entity];
+		if ( [syncEntities containsObject:[nsEntityDesc name]] == YES )
 		{
 			SyncEntity *existing = [SyncEntity entityForNSManagedObjectID:[mo objectID] context:managedObjectContext];
 			if ( existing == nil )
@@ -71,7 +71,7 @@
 				NSURL *oidURL = [[mo objectID] URIRepresentation];
 				existing = [SyncEntity insertInManagedObjectContext:managedObjectContext];
 				[existing setDataToken:[oidURL absoluteString]];		
-				[existing setName:[entity name]];
+				[existing setName:[nsEntityDesc name]];
 			}
 
 			[existing setStatus:@"delete"];
@@ -90,18 +90,18 @@
 	return set;
 }
 
-- (SyncChangeset *)processInserted:(NSArray *)changes inChangeset:(SyncChangeset *)set
+- (SyncChangeset *)processInserted:(NSSet *)changes inChangeset:(SyncChangeset *)set
 {
+		// first pass, ensure we have SyncEntities for all inserted records
 	for (NSManagedObject *mo in changes)
 	{
-		NSEntityDescription *entity = [mo entity];
-		if ( [syncEntities containsObject:[entity name]] == YES )
+		NSEntityDescription *nsEntityDesc = [mo entity];
+		if ( [syncEntities containsObject:[nsEntityDesc name]] == YES )
 		{
 			if ( set == nil )
 			{
 				set = [SyncChangeset insertInManagedObjectContext:managedObjectContext];
 				[set setUpdatedDate:[NSDate date]];
-//				[set setUuid:[NSString stringWithUUID]];
 			}
 			
 			SyncEntity *existing = [SyncEntity entityForNSManagedObjectID:[mo objectID] context:managedObjectContext];
@@ -111,12 +111,19 @@
 				existing = [SyncEntity insertInManagedObjectContext:managedObjectContext];
 				[existing setStatus:@"insert"];
 				[existing setDataToken:[oidURL absoluteString]];		
-					//[existing setUuid:[NSString stringWithUUID]];
-				[existing setName:[entity name]];
+				[existing setName:[nsEntityDesc name]];
 				[existing setUpdatedDate:[NSDate date]];
 			}
-			
-			for (NSPropertyDescription *prop in [entity properties])
+		}
+	}
+
+	for (NSManagedObject *mo in changes)
+	{
+		NSEntityDescription *nsEntityDesc = [mo entity];
+		if ( [syncEntities containsObject:[nsEntityDesc name]] == YES )
+		{
+			SyncEntity *existing = [SyncEntity entityForNSManagedObjectID:[mo objectID] context:managedObjectContext];
+			for (NSPropertyDescription *prop in [nsEntityDesc properties])
 			{
 				SyncChangeValue *cv = [existing findOrCreateChangeValueFor:prop];
 				[cv setChangeset:set];
@@ -144,12 +151,12 @@
 	return set;
 }
 
-- (SyncChangeset *)processUpdated:(NSArray *)changes inChangeset:(SyncChangeset *)set
+- (SyncChangeset *)processUpdated:(NSSet *)changes inChangeset:(SyncChangeset *)set
 {
 	for (NSManagedObject *mo in changes)
 	{
-		NSEntityDescription *entity = [mo entity];
-		if ( [syncEntities containsObject:[entity name]] == YES )
+		NSEntityDescription *nsEntityDesc = [mo entity];
+		if ( [syncEntities containsObject:[nsEntityDesc name]] == YES )
 		{
 			if ( set == nil )
 			{
@@ -165,12 +172,12 @@
 				existing = [SyncEntity insertInManagedObjectContext:managedObjectContext];
 				[existing setDataToken:[oidURL absoluteString]];		
 					//[existing setUuid:[NSString stringWithUUID]];
-				[existing setName:[entity name]];
+				[existing setName:[nsEntityDesc name]];
 				[existing setUpdatedDate:[NSDate date]];
 			}
 			[existing setStatus:@"update"];
 			
-			for (NSPropertyDescription *prop in [entity properties])
+			for (NSPropertyDescription *prop in [nsEntityDesc properties])
 			{
 				SyncChangeValue *cv = [existing findOrCreateChangeValueFor:prop];
 				[cv setChangeset:set];

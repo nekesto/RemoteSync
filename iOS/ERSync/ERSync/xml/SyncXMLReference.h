@@ -10,12 +10,6 @@
 
 
 @interface SyncXMLReference : NSObject 
-{
-	NSString *recordName;
-	NSString *updatedDateString;
-	NSString *recordStatus;
-	NSString *recordUUID;
-}
 
 @property (strong, nonatomic) NSString *updatedDateString;
 - (NSDate *)updatedDate;

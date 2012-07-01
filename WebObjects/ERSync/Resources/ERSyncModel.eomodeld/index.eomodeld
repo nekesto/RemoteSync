@@ -1,7 +1,7 @@
 {
     EOModelVersion = "2.1"; 
     adaptorName = JDBC; 
-    connectionDictionary = {}; 
+    connectionDictionary = {URL = "jdbc:FrontBase://localhost/ERSync/user=sync/upasswd=tester"; }; 
     entities = (
         {className = "er.sync.eo.ERSyncAuthReference"; name = ERSyncAuthReference; }, 
         {className = "er.sync.eo.ERSyncCapabilities"; name = ERSyncCapabilities; }, 
@@ -61,7 +61,7 @@
     ); 
     userInfo = {
         "_EntityModeler" = {
-            activeDatabaseConfigName = Postgress; 
+            activeDatabaseConfigName = Default; 
             databaseConfigs = {
                 Default = {
                     adaptorName = JDBC; 

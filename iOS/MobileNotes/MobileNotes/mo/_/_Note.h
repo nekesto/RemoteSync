@@ -2,22 +2,20 @@
 // Make changes to Note.h instead.
 
 #import <CoreData/CoreData.h>
-#import "GVCFoundation.h"
-
 #import "GVCManagedObject.h"
 
-GVC_DEFINE_EXTERN_STR(Note_ENTITY_NAME)
+extern const struct NoteAttributes {
+	__unsafe_unretained NSString *content;
+	__unsafe_unretained NSString *creationDate;
+	__unsafe_unretained NSString *subject;
+} NoteAttributes;
 
+extern const struct NoteRelationships {
+	__unsafe_unretained NSString *category;
+} NoteRelationships;
 
-GVC_DEFINE_EXTERN_STR(Note_Attribute_content)
-
-GVC_DEFINE_EXTERN_STR(Note_Attribute_creationDate)
-
-GVC_DEFINE_EXTERN_STR(Note_Attribute_subject)
-
-
-GVC_DEFINE_EXTERN_STR(Note_Relationship_category)
-
+extern const struct NoteFetchedProperties {
+} NoteFetchedProperties;
 
 @class Category;
 
@@ -36,27 +34,36 @@ GVC_DEFINE_EXTERN_STR(Note_Relationship_category)
 
 
 
+
 @property (nonatomic, strong) NSString* content;
+
 
 //- (BOOL)validateContent:(id*)value_ error:(NSError**)error_;
 
 
 
+
 @property (nonatomic, strong) NSDate* creationDate;
+
 
 //- (BOOL)validateCreationDate:(id*)value_ error:(NSError**)error_;
 
 
 
+
 @property (nonatomic, strong) NSString* subject;
+
 
 //- (BOOL)validateSubject:(id*)value_ error:(NSError**)error_;
 
 
 
 
+
 @property (nonatomic, strong) Category* category;
+
 //- (BOOL)validateCategory:(id*)value_ error:(NSError**)error_;
+
 
 
 

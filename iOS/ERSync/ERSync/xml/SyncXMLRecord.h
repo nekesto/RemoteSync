@@ -10,14 +10,6 @@
 
 
 @interface SyncXMLRecord : NSObject 
-{
-	NSString *recordName;
-	NSString *updatedDateString;
-	NSString *recordStatus;
-	NSString *recordUUID;
-	
-	NSMutableDictionary *attrbutes;
-}
 
 @property (strong, nonatomic) NSString *updatedDateString;
 - (NSDate *)updatedDate;

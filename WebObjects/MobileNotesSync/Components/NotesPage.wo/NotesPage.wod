@@ -80,3 +80,12 @@ cancelButton : WOSubmitButton
 	value = "Cancel";
 	class = "buttonStyle";
 }
+
+adminSync : WOHyperlink 
+{
+	action = showSyncAdmin;
+}
+
+isAdmin : WOConditional {
+  condition = isAdminUser;
+}
