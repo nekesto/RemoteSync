@@ -1,7 +1,6 @@
 *~
 *.class
 target
-*.xcodeproj
 *.pbxproj
 bin
 build
