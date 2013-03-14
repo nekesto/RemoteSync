@@ -64,18 +64,18 @@
 
 	GVCDataFormSection *section = nil;
     section = [[self model] addSectionWithHeader:@"Login" andFooter:nil];
-    [section addFormField:GVCDataFormFieldType_STRING withKeypath:SyncPrincipal_Attribute_username labelKey:SyncPrincipal_Attribute_username];
-    [section addFormField:GVCDataFormFieldType_PASSWORD withKeypath:SyncPrincipal_Attribute_password labelKey:SyncPrincipal_Attribute_password];
-    [section addFormField:GVCDataFormFieldType_URL withKeypath:SyncPrincipal_Attribute_site labelKey:SyncPrincipal_Attribute_site];
+    [section addFormField:GVCDataFormFieldType_STRING withKeypath:SyncPrincipalAttributes.username labelKey:SyncPrincipalAttributes.username];
+    [section addFormField:GVCDataFormFieldType_PASSWORD withKeypath:SyncPrincipalAttributes.password labelKey:SyncPrincipalAttributes.password];
+    [section addFormField:GVCDataFormFieldType_URL withKeypath:SyncPrincipalAttributes.site labelKey:SyncPrincipalAttributes.site];
 
 	section = [[self model] addSectionWithHeader:@"Sync" andFooter:nil];
-    [section addImmutableFormField:GVCDataFormFieldType_DATE withKeypath:SyncPrincipal_Attribute_lastSync labelKey:SyncPrincipal_Attribute_lastSync];
-    [section addImmutableFormField:GVCDataFormFieldType_STRING withKeypath:SyncPrincipal_Attribute_principalId labelKey:SyncPrincipal_Attribute_principalId];
-    [section addImmutableFormField:GVCDataFormFieldType_STRING withKeypath:SyncPrincipal_Attribute_uuid labelKey:SyncPrincipal_Attribute_uuid];
+    [section addImmutableFormField:GVCDataFormFieldType_DATE withKeypath:SyncPrincipalAttributes.lastSync labelKey:SyncPrincipalAttributes.lastSync];
+    [section addImmutableFormField:GVCDataFormFieldType_STRING withKeypath:SyncPrincipalAttributes.principalId labelKey:SyncPrincipalAttributes.principalId];
+    [section addImmutableFormField:GVCDataFormFieldType_STRING withKeypath:SyncPrincipalAttributes.uuid labelKey:SyncPrincipalAttributes.uuid];
 
 }
 
-#pragma UITableView
+#pragma mark - UITable
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tv 
 {
     GVCDataFormModel *m = [self model];
@@ -147,7 +147,7 @@
 {
     UITableViewCell *cell = [GVCMultiLineTableViewCell gvc_CellWithStyle:UITableViewCellStyleValue2 forTableView:tv];
     [[cell textLabel] setAdjustsFontSizeToFitWidth:YES];
-    [[cell detailTextLabel] setLineBreakMode:UILineBreakModeWordWrap];
+    [[cell detailTextLabel] setLineBreakMode:NSLineBreakByWordWrapping];
 	
 	NSAttributeDescription *attDesc = [[self entity] gvc_attributeNamedKeypath:[attrib keypath]];
     

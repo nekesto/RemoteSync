@@ -3,16 +3,21 @@
 
 #import "_SyncChangeValue.h"
 
-GVC_DEFINE_STRVALUE(SyncChangeValue_ENTITY_NAME, SyncChangeValue)
+const struct SyncChangeValueAttributes SyncChangeValueAttributes = {
+	.name = @"name",
+	.value = @"value",
+	.valueType = @"valueType",
+};
 
-GVC_DEFINE_STRVALUE(SyncChangeValue_Attribute_name, name)
-GVC_DEFINE_STRVALUE(SyncChangeValue_Attribute_value, value)
-GVC_DEFINE_STRVALUE(SyncChangeValue_Attribute_valueType, valueType)
+const struct SyncChangeValueRelationships SyncChangeValueRelationships = {
+	.changeset = @"changeset",
+	.syncEntity = @"syncEntity",
+	.toMany = @"toMany",
+	.toOne = @"toOne",
+};
 
-GVC_DEFINE_STRVALUE(SyncChangeValue_Relationship_changeset, changeset)
-GVC_DEFINE_STRVALUE(SyncChangeValue_Relationship_syncEntity, syncEntity)
-GVC_DEFINE_STRVALUE(SyncChangeValue_Relationship_toMany, toMany)
-GVC_DEFINE_STRVALUE(SyncChangeValue_Relationship_toOne, toOne)
+const struct SyncChangeValueFetchedProperties SyncChangeValueFetchedProperties = {
+};
 
 @implementation SyncChangeValueID
 @end
@@ -21,23 +26,23 @@ GVC_DEFINE_STRVALUE(SyncChangeValue_Relationship_toOne, toOne)
 
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:SyncChangeValue_ENTITY_NAME inManagedObjectContext:moc_];
+	return [NSEntityDescription insertNewObjectForEntityForName:@"SyncChangeValue" inManagedObjectContext:moc_];
 }
 
 + (NSString*)entityName {
-	return SyncChangeValue_ENTITY_NAME;
+	return @"SyncChangeValue";
 }
 
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:SyncChangeValue_ENTITY_NAME inManagedObjectContext:moc_];
+	return [NSEntityDescription entityForName:@"SyncChangeValue" inManagedObjectContext:moc_];
 }
 
 - (SyncChangeValueID*)objectID {
 	return (SyncChangeValueID*)[super objectID];
 }
 
-+ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
++ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
 
@@ -80,9 +85,11 @@ GVC_DEFINE_STRVALUE(SyncChangeValue_Relationship_toOne, toOne)
 
 	
 - (NSMutableSet*)toManySet {
-	[self willAccessValueForKey:SyncChangeValue_Relationship_toMany];
-	NSMutableSet *result = [self mutableSetValueForKey:SyncChangeValue_Relationship_toMany];
-	[self didAccessValueForKey:SyncChangeValue_Relationship_toMany];
+	[self willAccessValueForKey:@"toMany"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"toMany"];
+  
+	[self didAccessValueForKey:@"toMany"];
 	return result;
 }
 	
@@ -90,6 +97,7 @@ GVC_DEFINE_STRVALUE(SyncChangeValue_Relationship_toOne, toOne)
 @dynamic toOne;
 
 	
+
 
 
 

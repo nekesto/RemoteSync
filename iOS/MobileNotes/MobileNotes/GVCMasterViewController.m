@@ -9,8 +9,10 @@
 #import "GVCMasterViewController.h"
 #import "GVCDetailViewController.h"
 
-#import "GVCFoundation.h"
-#import "GVCCoreData.h"
+#import <GVCFoundation/GVCFoundation.h>
+#import <GVCUIKit/GVCUIKit.h>
+#import <GVCCoreData/GVCCoreData.h>
+
 #import "Note.h"
 #import "Category.h"
 

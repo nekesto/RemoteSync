@@ -3,17 +3,22 @@
 
 #import "_SyncEntity.h"
 
-GVC_DEFINE_STRVALUE(SyncEntity_ENTITY_NAME, SyncEntity)
+const struct SyncEntityAttributes SyncEntityAttributes = {
+	.dataToken = @"dataToken",
+	.name = @"name",
+	.status = @"status",
+	.updatedDate = @"updatedDate",
+	.uuid = @"uuid",
+};
 
-GVC_DEFINE_STRVALUE(SyncEntity_Attribute_dataToken, dataToken)
-GVC_DEFINE_STRVALUE(SyncEntity_Attribute_name, name)
-GVC_DEFINE_STRVALUE(SyncEntity_Attribute_status, status)
-GVC_DEFINE_STRVALUE(SyncEntity_Attribute_updatedDate, updatedDate)
-GVC_DEFINE_STRVALUE(SyncEntity_Attribute_uuid, uuid)
+const struct SyncEntityRelationships SyncEntityRelationships = {
+	.changes = @"changes",
+	.toManyChanges = @"toManyChanges",
+	.toOneChanges = @"toOneChanges",
+};
 
-GVC_DEFINE_STRVALUE(SyncEntity_Relationship_changes, changes)
-GVC_DEFINE_STRVALUE(SyncEntity_Relationship_toManyChanges, toManyChanges)
-GVC_DEFINE_STRVALUE(SyncEntity_Relationship_toOneChanges, toOneChanges)
+const struct SyncEntityFetchedProperties SyncEntityFetchedProperties = {
+};
 
 @implementation SyncEntityID
 @end
@@ -22,23 +27,23 @@ GVC_DEFINE_STRVALUE(SyncEntity_Relationship_toOneChanges, toOneChanges)
 
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:SyncEntity_ENTITY_NAME inManagedObjectContext:moc_];
+	return [NSEntityDescription insertNewObjectForEntityForName:@"SyncEntity" inManagedObjectContext:moc_];
 }
 
 + (NSString*)entityName {
-	return SyncEntity_ENTITY_NAME;
+	return @"SyncEntity";
 }
 
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:SyncEntity_ENTITY_NAME inManagedObjectContext:moc_];
+	return [NSEntityDescription entityForName:@"SyncEntity" inManagedObjectContext:moc_];
 }
 
 - (SyncEntityID*)objectID {
 	return (SyncEntityID*)[super objectID];
 }
 
-+ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
++ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
 
@@ -87,9 +92,11 @@ GVC_DEFINE_STRVALUE(SyncEntity_Relationship_toOneChanges, toOneChanges)
 
 	
 - (NSMutableSet*)changesSet {
-	[self willAccessValueForKey:SyncEntity_Relationship_changes];
-	NSMutableSet *result = [self mutableSetValueForKey:SyncEntity_Relationship_changes];
-	[self didAccessValueForKey:SyncEntity_Relationship_changes];
+	[self willAccessValueForKey:@"changes"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"changes"];
+  
+	[self didAccessValueForKey:@"changes"];
 	return result;
 }
 	
@@ -98,9 +105,11 @@ GVC_DEFINE_STRVALUE(SyncEntity_Relationship_toOneChanges, toOneChanges)
 
 	
 - (NSMutableSet*)toManyChangesSet {
-	[self willAccessValueForKey:SyncEntity_Relationship_toManyChanges];
-	NSMutableSet *result = [self mutableSetValueForKey:SyncEntity_Relationship_toManyChanges];
-	[self didAccessValueForKey:SyncEntity_Relationship_toManyChanges];
+	[self willAccessValueForKey:@"toManyChanges"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"toManyChanges"];
+  
+	[self didAccessValueForKey:@"toManyChanges"];
 	return result;
 }
 	
@@ -109,12 +118,15 @@ GVC_DEFINE_STRVALUE(SyncEntity_Relationship_toOneChanges, toOneChanges)
 
 	
 - (NSMutableSet*)toOneChangesSet {
-	[self willAccessValueForKey:SyncEntity_Relationship_toOneChanges];
-	NSMutableSet *result = [self mutableSetValueForKey:SyncEntity_Relationship_toOneChanges];
-	[self didAccessValueForKey:SyncEntity_Relationship_toOneChanges];
+	[self willAccessValueForKey:@"toOneChanges"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"toOneChanges"];
+  
+	[self didAccessValueForKey:@"toOneChanges"];
 	return result;
 }
 	
+
 
 
 

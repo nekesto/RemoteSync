@@ -2,7 +2,7 @@
 // Make changes to Category.h instead.
 
 #import <CoreData/CoreData.h>
-#import "GVCManagedObject.h"
+#import <GVCCoreData/GVCCoreData.h>
 
 extern const struct CategoryAttributes {
 	__unsafe_unretained NSString *name;
@@ -31,7 +31,9 @@ extern const struct CategoryFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* name;
+
 
 
 //- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
@@ -40,7 +42,7 @@ extern const struct CategoryFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSSet* notes;
+@property (nonatomic, strong) NSSet *notes;
 
 - (NSMutableSet*)notesSet;
 

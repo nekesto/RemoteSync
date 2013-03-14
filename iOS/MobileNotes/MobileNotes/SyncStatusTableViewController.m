@@ -7,9 +7,12 @@
 //
 
 #import "SyncStatusTableViewController.h"
-#import "GVCUIKit.h"
+#import <GVCFoundation/GVCFoundation.h>
+#import <GVCUIKit/GVCUIKit.h>
+#import <GVCCoreData/GVCCoreData.h>
+#import <ERSync/ERSync.h>
+
 #import "GVCAppDelegate.h"
-#import "ERSync.h"
 
 @interface SyncStatusTableViewController ()
 @property (strong, nonatomic) NSMutableArray *msgList;
@@ -82,7 +85,7 @@
 
 - (void)endSync:(NSString *)message
 {
-	[self setIndent:MAX([self indent]-1, 0)];
+	[self setIndent:MAX([self indent]-1, 0U)];
 	if ( gvc_IsEmpty(message) == NO )
 	{
 		[self addMessage:message];
@@ -112,7 +115,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	GVCMultiLineTableViewCell *cell = [GVCMultiLineTableViewCell gvc_CellWithStyle:UITableViewCellStyleDefault forTableView:tv];
-	[(GVCMultiLineTableViewCell *)cell setText:[[self msgList] objectAtIndex:[indexPath row]]];
+	[[(GVCMultiLineTableViewCell *)cell textView] setText:[[self msgList] objectAtIndex:[indexPath row]]];
 	return cell;
 }
 
@@ -132,7 +135,7 @@ static CGFloat kMargin = 10;
 		label = [(GVCMultiLineTableViewCell *)cell textView];
 	}
 
-	size = [[label text] sizeWithFont:[label font] constrainedToSize:CGSizeMake(maxWidth, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
+	size = [[label text] sizeWithFont:[label font] constrainedToSize:CGSizeMake(maxWidth, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
 	if (size.height < 20) 
 	{
 		size.height = 20;

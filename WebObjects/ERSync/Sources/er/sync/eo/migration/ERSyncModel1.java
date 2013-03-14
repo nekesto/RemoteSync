@@ -69,6 +69,8 @@ public class ERSyncModel1 extends Migration implements IERXPostMigration
 		eRSyncChangeValueTable.newIntegerColumn("intValue", true);
 		eRSyncChangeValueTable.newTimestampColumn("timestampValue", true);
 		eRSyncChangeValueTable.newStringColumn("stringValue", 10000000, true);
+		eRSyncChangeValueTable.newBigDecimalColumn("decimalValue", 38, 10, true);
+		eRSyncChangeValueTable.newIntegerColumn("longValue", true);
 		eRSyncChangeValueTable.create();
 		eRSyncChangeValueTable.setPrimaryKey("id");
 

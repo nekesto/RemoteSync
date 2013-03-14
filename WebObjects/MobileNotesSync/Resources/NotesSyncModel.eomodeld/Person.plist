@@ -1,0 +1,12 @@
+{
+    attributes = ({allowsNull = N; name = id; prototypeName = id; }); 
+    attributesUsedForLocking = (id); 
+    className = "net.global_village.notes.model.entities.Person"; 
+    externalName = Person; 
+    fetchSpecificationDictionary = {}; 
+    name = Person; 
+    primaryKeyAttributes = (id); 
+    userInfo = {
+        "_EntityModeler" = {parentClassName = "er.extensions.partials.ERXPartialGenericRecord"; }; 
+    }; 
+}

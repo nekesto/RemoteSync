@@ -2,30 +2,24 @@
 // Make changes to SyncEntity.h instead.
 
 #import <CoreData/CoreData.h>
-#import "GVCFoundation.h"
+#import <GVCCoreData/GVCCoreData.h>
 
-#import "GVCManagedObject.h"
+extern const struct SyncEntityAttributes {
+	__unsafe_unretained NSString *dataToken;
+	__unsafe_unretained NSString *name;
+	__unsafe_unretained NSString *status;
+	__unsafe_unretained NSString *updatedDate;
+	__unsafe_unretained NSString *uuid;
+} SyncEntityAttributes;
 
-GVC_DEFINE_EXTERN_STR(SyncEntity_ENTITY_NAME)
+extern const struct SyncEntityRelationships {
+	__unsafe_unretained NSString *changes;
+	__unsafe_unretained NSString *toManyChanges;
+	__unsafe_unretained NSString *toOneChanges;
+} SyncEntityRelationships;
 
-
-GVC_DEFINE_EXTERN_STR(SyncEntity_Attribute_dataToken)
-
-GVC_DEFINE_EXTERN_STR(SyncEntity_Attribute_name)
-
-GVC_DEFINE_EXTERN_STR(SyncEntity_Attribute_status)
-
-GVC_DEFINE_EXTERN_STR(SyncEntity_Attribute_updatedDate)
-
-GVC_DEFINE_EXTERN_STR(SyncEntity_Attribute_uuid)
-
-
-GVC_DEFINE_EXTERN_STR(SyncEntity_Relationship_changes)
-
-GVC_DEFINE_EXTERN_STR(SyncEntity_Relationship_toManyChanges)
-
-GVC_DEFINE_EXTERN_STR(SyncEntity_Relationship_toOneChanges)
-
+extern const struct SyncEntityFetchedProperties {
+} SyncEntityFetchedProperties;
 
 @class SyncChangeValue;
 @class SyncChangeValue;
@@ -48,49 +42,76 @@ GVC_DEFINE_EXTERN_STR(SyncEntity_Relationship_toOneChanges)
 
 
 
+
+
 @property (nonatomic, strong) NSString* dataToken;
+
+
 
 //- (BOOL)validateDataToken:(id*)value_ error:(NSError**)error_;
 
 
 
+
+
 @property (nonatomic, strong) NSString* name;
+
+
 
 //- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
 
 
 
+
+
 @property (nonatomic, strong) NSString* status;
+
+
 
 //- (BOOL)validateStatus:(id*)value_ error:(NSError**)error_;
 
 
 
+
+
 @property (nonatomic, strong) NSDate* updatedDate;
+
+
 
 //- (BOOL)validateUpdatedDate:(id*)value_ error:(NSError**)error_;
 
 
 
+
+
 @property (nonatomic, strong) NSString* uuid;
+
+
 
 //- (BOOL)validateUuid:(id*)value_ error:(NSError**)error_;
 
 
 
 
-@property (nonatomic, strong) NSSet* changes;
+
+@property (nonatomic, strong) NSSet *changes;
+
 - (NSMutableSet*)changesSet;
 
 
 
-@property (nonatomic, strong) NSSet* toManyChanges;
+
+@property (nonatomic, strong) NSSet *toManyChanges;
+
 - (NSMutableSet*)toManyChangesSet;
 
 
 
-@property (nonatomic, strong) NSSet* toOneChanges;
+
+@property (nonatomic, strong) NSSet *toOneChanges;
+
 - (NSMutableSet*)toOneChangesSet;
+
 
 
 

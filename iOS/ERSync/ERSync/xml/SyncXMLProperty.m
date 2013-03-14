@@ -8,7 +8,7 @@
 
 #import "SyncXMLProperty.h"
 
-#import "GVCFoundation.h"
+#import <GVCFoundation/GVCFoundation.h>
 #import "SyncXMLStatus.h"
 
 @implementation SyncXMLProperty

@@ -2,26 +2,22 @@
 // Make changes to SyncPrincipal.h instead.
 
 #import <CoreData/CoreData.h>
-#import "GVCFoundation.h"
+#import <GVCCoreData/GVCCoreData.h>
 
-#import "GVCManagedObject.h"
+extern const struct SyncPrincipalAttributes {
+	__unsafe_unretained NSString *lastSync;
+	__unsafe_unretained NSString *password;
+	__unsafe_unretained NSString *principalId;
+	__unsafe_unretained NSString *site;
+	__unsafe_unretained NSString *username;
+	__unsafe_unretained NSString *uuid;
+} SyncPrincipalAttributes;
 
-GVC_DEFINE_EXTERN_STR(SyncPrincipal_ENTITY_NAME)
+extern const struct SyncPrincipalRelationships {
+} SyncPrincipalRelationships;
 
-
-GVC_DEFINE_EXTERN_STR(SyncPrincipal_Attribute_lastSync)
-
-GVC_DEFINE_EXTERN_STR(SyncPrincipal_Attribute_password)
-
-GVC_DEFINE_EXTERN_STR(SyncPrincipal_Attribute_principalId)
-
-GVC_DEFINE_EXTERN_STR(SyncPrincipal_Attribute_site)
-
-GVC_DEFINE_EXTERN_STR(SyncPrincipal_Attribute_username)
-
-GVC_DEFINE_EXTERN_STR(SyncPrincipal_Attribute_uuid)
-
-
+extern const struct SyncPrincipalFetchedProperties {
+} SyncPrincipalFetchedProperties;
 
 
 
@@ -42,39 +38,64 @@ GVC_DEFINE_EXTERN_STR(SyncPrincipal_Attribute_uuid)
 
 
 
+
+
 @property (nonatomic, strong) NSDate* lastSync;
+
+
 
 //- (BOOL)validateLastSync:(id*)value_ error:(NSError**)error_;
 
 
 
+
+
 @property (nonatomic, strong) NSString* password;
+
+
 
 //- (BOOL)validatePassword:(id*)value_ error:(NSError**)error_;
 
 
 
+
+
 @property (nonatomic, strong) NSString* principalId;
+
+
 
 //- (BOOL)validatePrincipalId:(id*)value_ error:(NSError**)error_;
 
 
 
+
+
 @property (nonatomic, strong) NSString* site;
+
+
 
 //- (BOOL)validateSite:(id*)value_ error:(NSError**)error_;
 
 
 
+
+
 @property (nonatomic, strong) NSString* username;
+
+
 
 //- (BOOL)validateUsername:(id*)value_ error:(NSError**)error_;
 
 
 
+
+
 @property (nonatomic, strong) NSString* uuid;
 
+
+
 //- (BOOL)validateUuid:(id*)value_ error:(NSError**)error_;
+
 
 
 

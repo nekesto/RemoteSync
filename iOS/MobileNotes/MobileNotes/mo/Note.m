@@ -1,6 +1,5 @@
 #import "Note.h"
-#import "GVCFoundation.h"
-#import "GVCCoreData.h"
+#import <GVCFoundation/GVCFoundation.h>
 
 @implementation Note
 

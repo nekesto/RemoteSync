@@ -2,7 +2,7 @@
 // Make changes to Note.h instead.
 
 #import <CoreData/CoreData.h>
-#import "GVCManagedObject.h"
+#import <GVCCoreData/GVCCoreData.h>
 
 extern const struct NoteAttributes {
 	__unsafe_unretained NSString *content;
@@ -35,7 +35,9 @@ extern const struct NoteFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* content;
+
 
 
 //- (BOOL)validateContent:(id*)value_ error:(NSError**)error_;
@@ -43,7 +45,9 @@ extern const struct NoteFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSDate* creationDate;
+
 
 
 //- (BOOL)validateCreationDate:(id*)value_ error:(NSError**)error_;
@@ -51,7 +55,9 @@ extern const struct NoteFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* subject;
+
 
 
 //- (BOOL)validateSubject:(id*)value_ error:(NSError**)error_;
@@ -60,7 +66,7 @@ extern const struct NoteFetchedProperties {
 
 
 
-@property (nonatomic, strong) Category* category;
+@property (nonatomic, strong) Category *category;
 
 //- (BOOL)validateCategory:(id*)value_ error:(NSError**)error_;
 

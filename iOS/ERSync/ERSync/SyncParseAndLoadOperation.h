@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-#import "GVCCoreData.h"
+#import <GVCCoreData/GVCCoreData.h>
 
 #import "SyncOperation.h"
 

@@ -41,7 +41,7 @@
     <elements>
         <element name="SyncChangeset" positionX="241" positionY="9" width="128" height="90"/>
         <element name="SyncChangeValue" positionX="63" positionY="252" width="128" height="150"/>
-        <element name="SyncEntity" positionX="376" positionY="171" width="128" height="165"/>
-        <element name="SyncPrincipal" positionX="-110" positionY="126" width="128" height="135"/>
+        <element name="SyncEntity" positionX="394" positionY="231" width="128" height="165"/>
+        <element name="SyncPrincipal" positionX="-0" positionY="27" width="128" height="135"/>
     </elements>
 </model>

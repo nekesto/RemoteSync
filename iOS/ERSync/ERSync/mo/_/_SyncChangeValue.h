@@ -2,28 +2,23 @@
 // Make changes to SyncChangeValue.h instead.
 
 #import <CoreData/CoreData.h>
-#import "GVCFoundation.h"
+#import <GVCCoreData/GVCCoreData.h>
 
-#import "GVCManagedObject.h"
+extern const struct SyncChangeValueAttributes {
+	__unsafe_unretained NSString *name;
+	__unsafe_unretained NSString *value;
+	__unsafe_unretained NSString *valueType;
+} SyncChangeValueAttributes;
 
-GVC_DEFINE_EXTERN_STR(SyncChangeValue_ENTITY_NAME)
+extern const struct SyncChangeValueRelationships {
+	__unsafe_unretained NSString *changeset;
+	__unsafe_unretained NSString *syncEntity;
+	__unsafe_unretained NSString *toMany;
+	__unsafe_unretained NSString *toOne;
+} SyncChangeValueRelationships;
 
-
-GVC_DEFINE_EXTERN_STR(SyncChangeValue_Attribute_name)
-
-GVC_DEFINE_EXTERN_STR(SyncChangeValue_Attribute_value)
-
-GVC_DEFINE_EXTERN_STR(SyncChangeValue_Attribute_valueType)
-
-
-GVC_DEFINE_EXTERN_STR(SyncChangeValue_Relationship_changeset)
-
-GVC_DEFINE_EXTERN_STR(SyncChangeValue_Relationship_syncEntity)
-
-GVC_DEFINE_EXTERN_STR(SyncChangeValue_Relationship_toMany)
-
-GVC_DEFINE_EXTERN_STR(SyncChangeValue_Relationship_toOne)
-
+extern const struct SyncChangeValueFetchedProperties {
+} SyncChangeValueFetchedProperties;
 
 @class SyncChangeset;
 @class SyncEntity;
@@ -45,42 +40,63 @@ GVC_DEFINE_EXTERN_STR(SyncChangeValue_Relationship_toOne)
 
 
 
+
+
 @property (nonatomic, strong) NSString* name;
+
+
 
 //- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
 
 
 
+
+
 @property (nonatomic, strong) NSString* value;
+
+
 
 //- (BOOL)validateValue:(id*)value_ error:(NSError**)error_;
 
 
 
+
+
 @property (nonatomic, strong) NSString* valueType;
+
+
 
 //- (BOOL)validateValueType:(id*)value_ error:(NSError**)error_;
 
 
 
 
-@property (nonatomic, strong) SyncChangeset* changeset;
+
+@property (nonatomic, strong) SyncChangeset *changeset;
+
 //- (BOOL)validateChangeset:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, strong) SyncEntity* syncEntity;
+
+@property (nonatomic, strong) SyncEntity *syncEntity;
+
 //- (BOOL)validateSyncEntity:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, strong) NSSet* toMany;
+
+@property (nonatomic, strong) NSSet *toMany;
+
 - (NSMutableSet*)toManySet;
 
 
 
-@property (nonatomic, strong) SyncEntity* toOne;
+
+@property (nonatomic, strong) SyncEntity *toOne;
+
 //- (BOOL)validateToOne:(id*)value_ error:(NSError**)error_;
+
 
 
 

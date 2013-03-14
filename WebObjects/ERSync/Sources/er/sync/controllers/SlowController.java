@@ -116,7 +116,7 @@ public class SlowController extends GenericSyncController
 			}
 
 			String status = (String) push.attributeForKey(ERSyncEntity.STATUS_KEY) ;
-			if ( entityUUID == null )
+			if ( status == null )
 			{
 				throw new SecurityException("Pushed item " + count + " does not have valid status (insert, update, delete)");
 			}

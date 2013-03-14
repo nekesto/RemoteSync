@@ -16,12 +16,19 @@ This project contains several sub-projects
 ** a simple test tools that submits sync api messages using embedded javascript.  
 
 * iOS
-** a simple test app written for the iPhone (not released yet)
+** a simple test app written for the iPhone
 
 
 Used libaries
 -------------
 * [Project WOnder](http://projectwonder.blogspot.com/)
+
+* ERExtensions
+* ERJars
+* ERPrototypes
+* ERRest
+* JavaWOExtensions
+
  
  
 **Enjoy!**

@@ -7,8 +7,9 @@
 //
 
 #import "NoteEditTableViewController.h"
-#import "GVCFoundation.h"
-#import "GVCCoreData.h"
+#import <GVCFoundation/GVCFoundation.h>
+#import <GVCUIKit/GVCUIKit.h>
+#import <GVCCoreData/GVCCoreData.h>
 
 #import "Note.h"
 #import "Category.h"
@@ -196,7 +197,7 @@
 {
     UITableViewCell *cell = [GVCMultiLineTableViewCell gvc_CellWithStyle:UITableViewCellStyleValue2 forTableView:tv];
     [[cell textLabel] setAdjustsFontSizeToFitWidth:YES];
-    [[cell detailTextLabel] setLineBreakMode:UILineBreakModeWordWrap];
+    [[cell detailTextLabel] setLineBreakMode:NSLineBreakByWordWrapping];
 	
 	NSAttributeDescription *attDesc = [[self entity] gvc_attributeNamedKeypath:[attrib keypath]];
     

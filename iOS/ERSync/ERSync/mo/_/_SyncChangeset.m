@@ -3,12 +3,17 @@
 
 #import "_SyncChangeset.h"
 
-GVC_DEFINE_STRVALUE(SyncChangeset_ENTITY_NAME, SyncChangeset)
+const struct SyncChangesetAttributes SyncChangesetAttributes = {
+	.updatedDate = @"updatedDate",
+	.uuid = @"uuid",
+};
 
-GVC_DEFINE_STRVALUE(SyncChangeset_Attribute_updatedDate, updatedDate)
-GVC_DEFINE_STRVALUE(SyncChangeset_Attribute_uuid, uuid)
+const struct SyncChangesetRelationships SyncChangesetRelationships = {
+	.changes = @"changes",
+};
 
-GVC_DEFINE_STRVALUE(SyncChangeset_Relationship_changes, changes)
+const struct SyncChangesetFetchedProperties SyncChangesetFetchedProperties = {
+};
 
 @implementation SyncChangesetID
 @end
@@ -17,23 +22,23 @@ GVC_DEFINE_STRVALUE(SyncChangeset_Relationship_changes, changes)
 
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:SyncChangeset_ENTITY_NAME inManagedObjectContext:moc_];
+	return [NSEntityDescription insertNewObjectForEntityForName:@"SyncChangeset" inManagedObjectContext:moc_];
 }
 
 + (NSString*)entityName {
-	return SyncChangeset_ENTITY_NAME;
+	return @"SyncChangeset";
 }
 
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:SyncChangeset_ENTITY_NAME inManagedObjectContext:moc_];
+	return [NSEntityDescription entityForName:@"SyncChangeset" inManagedObjectContext:moc_];
 }
 
 - (SyncChangesetID*)objectID {
 	return (SyncChangesetID*)[super objectID];
 }
 
-+ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
++ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
 
@@ -61,12 +66,15 @@ GVC_DEFINE_STRVALUE(SyncChangeset_Relationship_changes, changes)
 
 	
 - (NSMutableSet*)changesSet {
-	[self willAccessValueForKey:SyncChangeset_Relationship_changes];
-	NSMutableSet *result = [self mutableSetValueForKey:SyncChangeset_Relationship_changes];
-	[self didAccessValueForKey:SyncChangeset_Relationship_changes];
+	[self willAccessValueForKey:@"changes"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"changes"];
+  
+	[self didAccessValueForKey:@"changes"];
 	return result;
 }
 	
+
 
 
 

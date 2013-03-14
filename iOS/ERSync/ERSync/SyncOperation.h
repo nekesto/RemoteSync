@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "GVCFoundation.h"
+#import <GVCFoundation/GVCFoundation.h>
 
 typedef enum _SyncOperationType {
 	SyncOperationType_REGISTER,

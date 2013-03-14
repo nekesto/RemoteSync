@@ -11,8 +11,18 @@
             parent = ERSyncChangeValue; 
         }, 
         {
+            className = "er.sync.eo.ERSyncChangeDecimal"; 
+            name = ERSyncChangeDecimal; 
+            parent = ERSyncChangeValue; 
+        }, 
+        {
             className = "er.sync.eo.ERSyncChangeInteger"; 
             name = ERSyncChangeInteger; 
+            parent = ERSyncChangeValue; 
+        }, 
+        {
+            className = "er.sync.eo.ERSyncChangeLong"; 
+            name = ERSyncChangeLong; 
             parent = ERSyncChangeValue; 
         }, 
         {className = "er.sync.eo.ERSyncChangeset"; name = ERSyncChangeset; }, 

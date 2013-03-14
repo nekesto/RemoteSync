@@ -2,20 +2,19 @@
 // Make changes to SyncChangeset.h instead.
 
 #import <CoreData/CoreData.h>
-#import "GVCFoundation.h"
+#import <GVCCoreData/GVCCoreData.h>
 
-#import "GVCManagedObject.h"
+extern const struct SyncChangesetAttributes {
+	__unsafe_unretained NSString *updatedDate;
+	__unsafe_unretained NSString *uuid;
+} SyncChangesetAttributes;
 
-GVC_DEFINE_EXTERN_STR(SyncChangeset_ENTITY_NAME)
+extern const struct SyncChangesetRelationships {
+	__unsafe_unretained NSString *changes;
+} SyncChangesetRelationships;
 
-
-GVC_DEFINE_EXTERN_STR(SyncChangeset_Attribute_updatedDate)
-
-GVC_DEFINE_EXTERN_STR(SyncChangeset_Attribute_uuid)
-
-
-GVC_DEFINE_EXTERN_STR(SyncChangeset_Relationship_changes)
-
+extern const struct SyncChangesetFetchedProperties {
+} SyncChangesetFetchedProperties;
 
 @class SyncChangeValue;
 
@@ -33,21 +32,32 @@ GVC_DEFINE_EXTERN_STR(SyncChangeset_Relationship_changes)
 
 
 
+
+
 @property (nonatomic, strong) NSDate* updatedDate;
+
+
 
 //- (BOOL)validateUpdatedDate:(id*)value_ error:(NSError**)error_;
 
 
 
+
+
 @property (nonatomic, strong) NSString* uuid;
+
+
 
 //- (BOOL)validateUuid:(id*)value_ error:(NSError**)error_;
 
 
 
 
-@property (nonatomic, strong) NSSet* changes;
+
+@property (nonatomic, strong) NSSet *changes;
+
 - (NSMutableSet*)changesSet;
+
 
 
 

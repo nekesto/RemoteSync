@@ -1,6 +1,7 @@
 #import "Category.h"
-#import "GVCFoundation.h"
-#import "GVCCoreData.h"
+#import <GVCFoundation/GVCFoundation.h>
+#import <GVCUIKit/GVCUIKit.h>
+#import <GVCCoreData/GVCCoreData.h>
 
 @implementation Category
 

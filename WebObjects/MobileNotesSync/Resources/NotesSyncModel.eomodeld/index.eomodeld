@@ -14,6 +14,11 @@
             name = Category; 
         }, 
         {className = "net.global_village.notes.model.entities.Note"; name = Note; }, 
+        {className = "net.global_village.notes.model.entities.Person"; name = Person; }, 
+        {
+            className = "net.global_village.notes.model.entities.TaskPerson"; 
+            name = TaskPerson; 
+        }, 
         {className = "net.global_village.notes.model.entities.User"; name = User; }
     ); 
     userInfo = {

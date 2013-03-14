@@ -8,7 +8,7 @@
 
 #import "SyncParseAndLoadOperation.h"
 
-#import "GVCFoundation.h"
+#import <GVCFoundation/GVCFoundation.h>
 #import "SyncPrincipal.h"
 #import "SyncEntity.h"
 #import "SyncXMLStatus.h"
@@ -81,7 +81,7 @@
 	}
 	else if ([respData isKindOfClass:[GVCStreamResponseData class]] == YES) 
 	{
-		[irony setFilename:[(GVCStreamResponseData *)respData responseFilename]];
+		[irony setXmlFilename:[(GVCStreamResponseData *)respData responseFilename]];
 	}
 	
 	@try {
@@ -91,13 +91,13 @@
 			// ignore
 	}
 	
-	return ([irony status] == GVC_XML_ParserDelegateStatus_SUCCESS ? [irony digestDictionary] : nil );
+	return ([irony status] == GVCXMLParserDelegate_Status_SUCCESS ? [irony digestDictionary] : nil );
 }
 
 #pragma mark - convenient Core Data 
 - (NSEntityDescription *)entityForName:(NSString *)name
 {
-	GVC_ASSERT_VALID_STRING(name);
+	GVC_ASSERT_NOT_EMPTY(name);
 
 	NSEntityDescription *targetED = [NSEntityDescription entityForName:name inManagedObjectContext:[self managedObjectContext]];
 	if ( targetED == nil )
@@ -110,7 +110,7 @@
 
 - (NSPropertyDescription *)propertyForName:(NSString *)name inEntity:(NSEntityDescription *)ent
 {
-	GVC_ASSERT_VALID_STRING(name);
+	GVC_ASSERT_NOT_EMPTY(name);
 	GVC_ASSERT(ent != nil, @"NSEntityDescription is required");
 
 	NSPropertyDescription *prop = [ent gvc_propertyNamed:name];

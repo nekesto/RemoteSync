@@ -7,9 +7,10 @@
 //
 
 #import "GVCDetailViewController.h"
-#import "GVCCoreData.h"
-#import "ERSync.h"
-#import "GVCFoundation.h"
+#import <GVCFoundation/GVCFoundation.h>
+#import <GVCUIKit/GVCUIKit.h>
+#import <GVCCoreData/GVCCoreData.h>
+#import <ERSync/ERSync.h>
 
 #import "Note.h"
 #import "Category.h"
@@ -105,11 +106,6 @@
 	[op setDidStartBlock:^(GVCOperation *operation) {
 		[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] startAlertWithMessage:@"Resetting all data"];
 	}];
-	[op setProgressBlock:^(NSInteger item, NSInteger total, NSString *msg) {
-		GVCLogError(@"%d/%d %@", item, total, msg);
-		[[self syncStatus] addStatus:item forTotal:total statusMessage:msg];
-		[[self syncStatus] reload:nil];
-	}];
 	 
 	[op setDidFinishBlock:^(GVCOperation *operation) {
 		[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] stopAlert];
@@ -166,15 +162,11 @@
 		[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] startAlertWithMessage:@"Sending registration"];
 		[[self syncStatus] startSync:@"Registration message"];
 	}];
-	[netOp setProgressBlock:^(NSInteger item, NSInteger total, NSString *msg) {
-		GVCLogError(@"%d/%d %@", item, total, msg);
-		[[self syncStatus] addStatus:item forTotal:total statusMessage:msg];
-	}];
 	
 	[netOp setDidFinishBlock:^(GVCOperation *operation) {
 		[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] stopAlert];
-		NSData *data = [(GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData] responseBody];
-		[data writeToFile:@"/tmp/registration.xml" atomically:YES];
+		NSData *respData = [(GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData] responseBody];
+		[respData writeToFile:@"/tmp/registration.xml" atomically:YES];
 	}];
 	[netOp setDidFailWithErrorBlock:^(GVCOperation *operation, NSError *err) {
 		[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] stopAlert];
@@ -187,9 +179,6 @@
 	}];
 	[parseAndLoad setDidStartBlock:^(GVCOperation *operation) {
 		[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] startAlertWithMessage:@"Parsing ..."];
-	}];
-	[parseAndLoad setProgressBlock:^(NSInteger item, NSInteger total, NSString *msg) {
-		[[self syncStatus] addStatus:item forTotal:total statusMessage:msg];
 	}];
 	[parseAndLoad setDidFinishBlock:^(GVCOperation *operation) {
 		[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] stopAlert];
@@ -270,15 +259,11 @@
 		[netOp setDidStartBlock:^(GVCOperation *operation) {
 			[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] startAlertWithMessage:@"Sending full sync"];
 		}];
-		[netOp setProgressBlock:^(NSInteger item, NSInteger total, NSString *msg) {
-			GVCLogError(@"%d/%d %@", item, total, msg);
-			[[self syncStatus] addStatus:item forTotal:total statusMessage:msg];
-		}];
 		
 		[netOp setDidFinishBlock:^(GVCOperation *operation) {
 			[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] stopAlert];
-			NSData *data = [(GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData] responseBody];
-			[data writeToFile:@"/tmp/fullsync.xml" atomically:YES];
+			NSData *respData = [(GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData] responseBody];
+			[respData writeToFile:@"/tmp/fullsync.xml" atomically:YES];
 		}];
 		[netOp setDidFailWithErrorBlock:^(GVCOperation *operation, NSError *err) {
 			[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] stopAlert];
@@ -291,9 +276,6 @@
 		}];
 		[parseAndLoad setDidStartBlock:^(GVCOperation *operation) {
 			[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] startAlertWithMessage:@"Parsing ..."];
-		}];
-		[parseAndLoad setProgressBlock:^(NSInteger item, NSInteger total, NSString *msg) {
-			[[self syncStatus] addStatus:item forTotal:total statusMessage:msg];
 		}];
 		[parseAndLoad setDidFinishBlock:^(GVCOperation *operation) {
 			[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] stopAlert];
@@ -342,11 +324,11 @@
 		[output openElement:@"data"];	
 		
 			// check for deleted
-		NSEntityDescription *syncEnt = [NSEntityDescription entityForName:SyncEntity_ENTITY_NAME inManagedObjectContext:[p managedObjectContext]];
+		NSEntityDescription *syncEnt = [NSEntityDescription entityForName:[SyncEntity entityName] inManagedObjectContext:[p managedObjectContext]];
 		NSMutableArray *and = [NSMutableArray arrayWithCapacity:2];
 		[and addObject:[syncEnt gvc_predicateForProperty:@"status" andValue:@"delete"]];
 		[and addObject:[NSPredicate predicateWithFormat:@"(updatedDate >= %@)", [p lastSync]]];
-		NSSet *allDel = [[p managedObjectContext] gvc_fetchObjectsForEntityName:SyncEntity_ENTITY_NAME withPredicate:[NSCompoundPredicate andPredicateWithSubpredicates:and]];
+		NSSet *allDel = [[p managedObjectContext] gvc_fetchObjectsForEntityName:[SyncEntity entityName] withPredicate:[NSCompoundPredicate andPredicateWithSubpredicates:and]];
 		for ( SyncEntity *delObj in allDel )
 		{
 			NSDictionary *atts = [NSDictionary dictionaryWithObjectsAndKeys:[delObj uuid], @"id", [delObj status], @"status", nil];
@@ -355,7 +337,7 @@
 		
 //		NSEntityDescription *changesetEntity = [NSEntityDescription entityForName:SyncChangeset_ENTITY_NAME inManagedObjectContext:[p managedObjectContext]];
 		NSPredicate *datePred = [NSPredicate predicateWithFormat:@"(updatedDate >= %@)", [p lastSync]];
-		NSSet *allChangeset = [[p managedObjectContext] gvc_fetchObjectsForEntityName:SyncChangeset_ENTITY_NAME withPredicate:datePred];
+		NSSet *allChangeset = [[p managedObjectContext] gvc_fetchObjectsForEntityName:[SyncChangeset entityName] withPredicate:datePred];
 		
 		NSMutableDictionary *grouped = [NSMutableDictionary dictionaryWithCapacity:10];
 		for (SyncChangeset *changeset in allChangeset) 
@@ -433,15 +415,11 @@
 			[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] startAlertWithMessage:@"Sending Delta Sync"];
 			[[self syncStatus] startSync:@"Delta Sync"];
 		}];
-		[netOp setProgressBlock:^(NSInteger item, NSInteger total, NSString *msg) {
-			GVCLogError(@"%d/%d %@", item, total, msg);
-			[[self syncStatus] addStatus:item forTotal:total statusMessage:msg];
-		}];
 		
 		[netOp setDidFinishBlock:^(GVCOperation *operation) {
 			[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] stopAlert];
-			NSData *data = [(GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData] responseBody];
-			[data writeToFile:@"/tmp/delta-rs.xml" atomically:YES];
+			NSData *respdata = [(GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData] responseBody];
+			[respdata writeToFile:@"/tmp/delta-rs.xml" atomically:YES];
 		}];
 		[netOp setDidFailWithErrorBlock:^(GVCOperation *operation, NSError *err) {
 			[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] stopAlert];
@@ -454,9 +432,6 @@
 		}];
 		[parseAndLoad setDidStartBlock:^(GVCOperation *operation) {
 			[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] startAlertWithMessage:@"Parsing ..."];
-		}];
-		[parseAndLoad setProgressBlock:^(NSInteger item, NSInteger total, NSString *msg) {
-			[[self syncStatus] addStatus:item forTotal:total statusMessage:msg];
 		}];
 		[parseAndLoad setDidFinishBlock:^(GVCOperation *operation) {
 			[[GVCAlertMessageCenter sharedGVCAlertMessageCenter] stopAlert];

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:MobileNotes/MobileNotes.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ERSync/ERSync.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:GVCCoreData/GVCCoreData.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:GVCFoundation/GVCFoundation.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:GVCUIKit/GVCUIKit.xcodeproj">
+   </FileRef>
+</Workspace>

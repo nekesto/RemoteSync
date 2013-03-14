@@ -6,7 +6,9 @@
 //  Copyright (c) 2012 Global Village Consulting. All rights reserved.
 //
 
-#import "GVCUIViewWithTableController.h"
+#import <GVCFoundation/GVCFoundation.h>
+#import <GVCUIKit/GVCUIKit.h>
+#import <GVCCoreData/GVCCoreData.h>
 
 @interface SyncStatusTableViewController : GVCUIViewWithTableController
 

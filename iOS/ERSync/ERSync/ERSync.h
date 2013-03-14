@@ -6,6 +6,7 @@
 #ifndef ERSync_h
 #define ERSync_h
 
+#import "ERSyncModel.h"
 #import "SyncEngine.h"
 #import "SyncOperation.h"
 #import "SyncParseAndLoadOperation.h"
@@ -14,6 +15,7 @@
 /* 
  * mo 
  */
+#import "ERSyncModel.h"
 #import "SyncChangeValue.h"
 #import "SyncChangeset.h"
 #import "SyncEntity.h"

@@ -1,6 +1,6 @@
 #import "SyncEntity.h"
-#import "GVCFoundation.h"
-#import "GVCCoreData.h"
+#import <GVCFoundation/GVCFoundation.h>
+#import <GVCCoreData/GVCCoreData.h>
 
 #import "SyncChangeValue.h"
 
@@ -8,16 +8,16 @@
 
 + (SyncEntity *)entityForUUID:(NSString *)uid context:(NSManagedObjectContext *)context;
 {
-	GVC_ASSERT_VALID_STRING(uid);
-	NSPredicate *pred = [NSPredicate predicateWithFormat:@"%K == %@", SyncEntity_Attribute_uuid, uid];
+	GVC_ASSERT_NOT_EMPTY(uid);
+	NSPredicate *pred = [NSPredicate predicateWithFormat:@"%K == %@", GVCManagedObject_UUID_ATTRIBUTE, uid];
 	
 	return (SyncEntity *)[NSManagedObject gvc_findObject:[self entityInManagedObjectContext:context] forPredicate:pred inContext:context];
 }
 
 + (SyncEntity *)entityForURI:(NSString *)uri context:(NSManagedObjectContext *)context;
 {
-	GVC_ASSERT_VALID_STRING(uri);
-	NSPredicate *pred = [NSPredicate predicateWithFormat:@"%K == %@", SyncEntity_Attribute_dataToken, uri];
+	GVC_ASSERT_NOT_EMPTY(uri);
+	NSPredicate *pred = [NSPredicate predicateWithFormat:@"%K == %@", SyncEntityAttributes.dataToken, uri];
 	
 	return (SyncEntity *)[NSManagedObject gvc_findObject:[self entityInManagedObjectContext:context] forPredicate:pred inContext:context];
 }

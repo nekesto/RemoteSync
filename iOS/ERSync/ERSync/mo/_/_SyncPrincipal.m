@@ -3,15 +3,20 @@
 
 #import "_SyncPrincipal.h"
 
-GVC_DEFINE_STRVALUE(SyncPrincipal_ENTITY_NAME, SyncPrincipal)
+const struct SyncPrincipalAttributes SyncPrincipalAttributes = {
+	.lastSync = @"lastSync",
+	.password = @"password",
+	.principalId = @"principalId",
+	.site = @"site",
+	.username = @"username",
+	.uuid = @"uuid",
+};
 
-GVC_DEFINE_STRVALUE(SyncPrincipal_Attribute_lastSync, lastSync)
-GVC_DEFINE_STRVALUE(SyncPrincipal_Attribute_password, password)
-GVC_DEFINE_STRVALUE(SyncPrincipal_Attribute_principalId, principalId)
-GVC_DEFINE_STRVALUE(SyncPrincipal_Attribute_site, site)
-GVC_DEFINE_STRVALUE(SyncPrincipal_Attribute_username, username)
-GVC_DEFINE_STRVALUE(SyncPrincipal_Attribute_uuid, uuid)
+const struct SyncPrincipalRelationships SyncPrincipalRelationships = {
+};
 
+const struct SyncPrincipalFetchedProperties SyncPrincipalFetchedProperties = {
+};
 
 @implementation SyncPrincipalID
 @end
@@ -20,23 +25,23 @@ GVC_DEFINE_STRVALUE(SyncPrincipal_Attribute_uuid, uuid)
 
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:SyncPrincipal_ENTITY_NAME inManagedObjectContext:moc_];
+	return [NSEntityDescription insertNewObjectForEntityForName:@"SyncPrincipal" inManagedObjectContext:moc_];
 }
 
 + (NSString*)entityName {
-	return SyncPrincipal_ENTITY_NAME;
+	return @"SyncPrincipal";
 }
 
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:SyncPrincipal_ENTITY_NAME inManagedObjectContext:moc_];
+	return [NSEntityDescription entityForName:@"SyncPrincipal" inManagedObjectContext:moc_];
 }
 
 - (SyncPrincipalID*)objectID {
 	return (SyncPrincipalID*)[super objectID];
 }
 
-+ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
++ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
 
@@ -82,6 +87,7 @@ GVC_DEFINE_STRVALUE(SyncPrincipal_Attribute_uuid, uuid)
 
 
 @dynamic uuid;
+
 
 
 

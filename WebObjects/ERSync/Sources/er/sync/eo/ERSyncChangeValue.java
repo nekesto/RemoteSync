@@ -46,11 +46,22 @@ public abstract class ERSyncChangeValue extends _ERSyncChangeValue
 						case EOAttribute._VTBoolean:
 							changeEO = ERSyncChangeBoolean.createERSyncChangeBoolean(ec, attr.name(), syncEntity, changeSet);
 							break;
+						
+						case EOAttribute._VTLong:
+							changeEO = ERSyncChangeLong.createERSyncChangeLong(ec, attr.name(), syncEntity, changeSet);
+							break;
+
+						case EOAttribute._VTFloat:
+						case EOAttribute._VTDouble:
+						case EOAttribute._VTBigDecimal:
+							changeEO = ERSyncChangeDecimal.createERSyncChangeDecimal(ec, attr.name(), syncEntity, changeSet);
+							break;
 					}
 					break;
 				case EOAttribute.AdaptorCharactersType:
 					changeEO = ERSyncChangeString.createERSyncChangeString(ec, attr.name(), syncEntity, changeSet );
 					break;
+
 			}
 		}
 		else if ( attr instanceof EORelationship )

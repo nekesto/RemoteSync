@@ -1,0 +1,10 @@
+{
+    attributes = ({allowsNull = N; name = id; prototypeName = id; }); 
+    attributesUsedForLocking = (id); 
+    className = "net.global_village.notes.model.entities.TaskPerson"; 
+    externalName = Person; 
+    fetchSpecificationDictionary = {}; 
+    name = TaskPerson; 
+    primaryKeyAttributes = (id); 
+    userInfo = {"_EntityModeler" = {partialEntity = Person; }; }; 
+}
